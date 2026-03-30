@@ -1,0 +1,57 @@
+# Example workflow: call the published composite action from another repository
+#
+# Prerequisites:
+#   • Secrets: JAMF_CLIENT_ID, JAMF_CLIENT_SECRET
+#   • Variable: JAMF_URL (Settings → Secrets and variables → Actions → Variables)
+
+name: Rotate Recovery Lock (Dry Run)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rotate-recovery-lock:
+    name: Rotate Recovery Lock
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      JAMF_CLIENT_ID: ${{ secrets.JAMF_CLIENT_ID }}
+      JAMF_CLIENT_SECRET: ${{ secrets.JAMF_CLIENT_SECRET }}
+
+    steps:
+      # Uncomment if you use wordlist_path pointing at a file in this repository:
+      # - uses: actions/checkout@v6
+
+      - name: Run Jamf Recovery Lock Rotation
+        id: jamf_recovery_lock_rotation
+        uses: Inetum-Poland/jamf-recovery-lock-rotation@v1
+        with:
+          jamf_url: ${{ vars.JAMF_URL }}
+
+          # Default wordlist: bundled eff_large_wordlist.txt (no wordlist / wordlist_path needed).
+          # Another bundled file from this action’s wordlists/ directory:
+          # wordlist: wordlists/eff_short_wordlist_1.txt
+          #
+          # Your own wordlist in *this* repo (requires checkout step before this one):
+          # wordlist_path: ${{ github.workspace }}/path/to/your-wordlist.txt
+
+          # Optional: limit to a smart computer group name instead of all devices
+          rotation_scope: ${{ vars.ROTATION_SCOPE }}
+
+          # -----------------------------------------------------------------
+          # DRY RUN — uncomment to validate configuration without sending MDM commands
+          # -----------------------------------------------------------------
+          dry_run: ${{ vars.DRY_RUN }}
+          #
+          # Optional with dry_run: log generated passphrases (sensitive; use only for debugging)
+          show_passwords_in_dry_run: ${{ vars.SHOW_PASSWORDS_IN_DRY_RUN }}
+
+          # Optional: logging verbosity: debug, info, warn or error
+          log_level: ${{ vars.LOG_LEVEL }}
+
+      - name: Report counts
+        shell: bash
+        run: |
+          echo "rotated_count=${{ steps.jamf_recovery_lock_rotation.outputs.rotated_count }}"
+          echo "failed_count=${{ steps.jamf_recovery_lock_rotation.outputs.failed_count }}"
