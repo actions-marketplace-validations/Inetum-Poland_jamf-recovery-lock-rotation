@@ -4,13 +4,13 @@
 [![GitHub Marketplace](https://img.shields.io/badge/Marketplace-Jamf%20Recovery%20Lock%20Rotation-blue?logo=github&colorA=2a313c&colorB=2f81f7)](https://github.com/marketplace/actions/jamf-recovery-lock-rotation)
 [![Platform](https://img.shields.io/badge/platform-Ubuntu%20runner-orange)](#)
 [![MDM: Jamf Pro](https://img.shields.io/badge/MDM-Jamf%20Pro-blue)](#)
-[![Lint](https://github.com/Inetum-Poland/jamf-recovery-lock-rotation/actions/workflows/lint.yml/badge.svg)](#)
+[![Lint](https://github.com/Inetum-Poland/jamf-recovery-lock-rotation/actions/workflows/lint.yml/badge.svg)](https://github.com/Inetum-Poland/jamf-recovery-lock-rotation/actions/workflows/lint.yml)
 [![ShellCheck](https://img.shields.io/badge/ShellCheck-passing-brightgreen)](#)
 [![Security](https://img.shields.io/badge/secrets-no--logging-critical)](#)
-[![Dry Run](https://img.shields.io/badge/dry%20run-supported-success)](#)
+[![Dry Run](https://img.shields.io/badge/dry%20run-supported-success)](https://github.com/Inetum-Poland/jamf-recovery-lock-rotation?tab=readme-ov-file#dry-run-rotate-recovery-lock-dry-run)
 [![GitHub Release](https://img.shields.io/github/v/release/Inetum-Poland/jamf-recovery-lock-rotation)](https://github.com/Inetum-Poland/jamf-recovery-lock-rotation/releases)
 
-**Composite GitHub Action for rotating Recovery Lock passphrases on Jamf Pro–managed Apple Silicon Macs via the Jamf Pro API.**  
+**Composite GitHub Action for rotating Recovery Lock passphrases on Jamf Pro–managed Apple Silicon Mac computers via the Jamf Pro API.**  
 Passphrases are generated from bundled or custom wordlists. Credentials are never logged.
 
 ## About

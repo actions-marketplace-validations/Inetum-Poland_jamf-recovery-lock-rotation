@@ -1,10 +1,8 @@
 name: Jamf Recovery Lock Rotation
 author: Bartłomiej Sojka
 description: >-
-  Rotate Recovery Lock passwords for Jamf-managed macOS devices.
-  Provide JAMF_CLIENT_ID and JAMF_CLIENT_SECRET via the workflow job or step env
-  (for example from repository secrets); they are not action inputs and are not
-  re-declared here so they pass through unchanged.
+  GitHub Action for macOS Recovery Lock rotation in Jamf Pro
+  with secure passphrase generation and no infrastructure required.
 
 branding:
   icon: lock
