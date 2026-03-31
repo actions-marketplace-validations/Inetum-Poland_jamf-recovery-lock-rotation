@@ -65,10 +65,10 @@ jobs:
         with:
           myToken: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Attest
-      #   uses: actions/attest@v4
-      #   with:
-      #     subject-path: '${{ github.workspace }}/recovery-lock-rotation.sh'
+      - name: Attest
+        uses: actions/attest@v4
+        with:
+          subject-path: '${{ github.workspace }}/recovery-lock-rotation.sh'
 
       - name: Create GitHub Release
         id: create_release

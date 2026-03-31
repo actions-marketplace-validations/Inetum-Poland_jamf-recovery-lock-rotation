@@ -162,19 +162,11 @@ function loadWordlist() {
 	log_info "Loaded ${SOURCE_WORD_COUNT} unique words from wordlist"
 }
 
-# Shuffle, take WORD_COUNT, join with DELIMITER (sort, awk: macOS & GNU coreutils) + ignore 141 (SIGPIPE)
+# Shuffle, take WORD_COUNT, join with DELIMITER (sort -R: macOS & GNU coreutils) + ignore 141 (SIGPIPE)
 function generatePassphrase() {
-	# Cleaner code:
-	# LC_ALL=C sort -R <<<"${SOURCE_LIST}" |
-	# 	head -n "${WORD_COUNT}" |
-	# 	paste -sd "${DELIMITER}" - ||
-	# 	[[ $? -eq 141 ]]
-	# Better entropy:
-	awk 'BEGIN { srand() } { print rand(), $0 }' <<<"${SOURCE_LIST}" |
-		sort -n |
-		cut -d' ' -f2- |
-		head -n "$WORD_COUNT" |
-		paste -sd "$DELIMITER" - ||
+	LC_ALL=C sort -R <<<"${SOURCE_LIST}" |
+		head -n "${WORD_COUNT}" |
+		paste -sd "${DELIMITER}" - ||
 		[[ $? -eq 141 ]]
 }
 
