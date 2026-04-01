@@ -104,7 +104,7 @@ The underlying script exits with **`1`** (configuration), **`2`** (hard API/auth
 
 ## Examples
 
-These mirror the repository workflows [`.github/workflows/rotate-recovery-lock.yml`](.github/workflows/rotate-recovery-lock.yml) and [`.github/workflows/rotate-recovery-lock-dry-run.yml`](.github/workflows/rotate-recovery-lock-dry-run.yml).
+These mirror the repository workflows [`examples/workflows/rotate-recovery-lock-scheduled.yml`](examples/workflows/rotate-recovery-lock-scheduled.yml), [`examples/workflows/rotate-recovery-lock-manual.yml`](examples/workflows/rotate-recovery-lock-manual.yml) and [`examples/workflows/rotate-recovery-lock-dry-run.yml`](examples/workflows/rotate-recovery-lock-dry-run.yml).
 
 ### Scheduled rotation + manual run (`Rotate Recovery Lock`)
 
@@ -132,7 +132,6 @@ jobs:
           jamf_url: ${{ vars.JAMF_URL }}
           rotation_scope: ${{ vars.ROTATION_SCOPE }}
           # dry_run: 'true'
-          # show_passwords_in_dry_run: 'true'
 
       - name: Report counts
         shell: bash
@@ -168,7 +167,7 @@ on:
 
 jobs:
   rotate-recovery-lock:
-    name: Rotate Recovery Lock
+    name: Rotate Recovery Lock (Dry Run)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -181,7 +180,7 @@ jobs:
         with:
           jamf_url: ${{ vars.JAMF_URL }}
           rotation_scope: ${{ vars.ROTATION_SCOPE }}
-          dry_run: ${{ vars.DRY_RUN }}
+          dry_run: 'true'
           show_passwords_in_dry_run: ${{ vars.SHOW_PASSWORDS_IN_DRY_RUN }}
           log_level: ${{ vars.LOG_LEVEL }}
 
@@ -208,7 +207,7 @@ Use `rotation_scope` with the exact smart group name (or drive it from `vars.ROT
 
 ```yaml
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run Jamf Recovery Lock Rotation
         id: jamf_recovery_lock_rotation

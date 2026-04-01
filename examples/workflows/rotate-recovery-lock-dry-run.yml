@@ -11,7 +11,7 @@ on:
 
 jobs:
   rotate-recovery-lock:
-    name: Rotate Recovery Lock
+    name: Rotate Recovery Lock (Dry Run)
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -42,9 +42,13 @@ jobs:
           # -----------------------------------------------------------------
           # DRY RUN — uncomment to validate configuration without sending MDM commands
           # -----------------------------------------------------------------
-          dry_run: ${{ vars.DRY_RUN }}
+          dry_run: 'true'
+          # or
+          # dry_run: ${{ vars.DRY_RUN }}
           #
           # Optional with dry_run: log generated passphrases (sensitive; use only for debugging)
+          # show_passwords_in_dry_run: 'true'
+          # or
           show_passwords_in_dry_run: ${{ vars.SHOW_PASSWORDS_IN_DRY_RUN }}
 
           # Optional: logging verbosity: debug, info, warn or error

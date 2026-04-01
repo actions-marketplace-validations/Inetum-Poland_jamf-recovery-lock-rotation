@@ -4,20 +4,20 @@
 #   • Secrets: JAMF_CLIENT_ID, JAMF_CLIENT_SECRET
 #   • Variable: JAMF_URL (Settings → Secrets and variables → Actions → Variables)
 
-name: Rotate Recovery Lock
+name: Rotate Recovery Lock (Once per month)
 
 on:
-  # --- Pick one schedule (or add workflow_dispatch only and trigger manually) ---
+  # --- Pick one schedule (or add workflow_dispatch: and trigger manually) ---
   # First day of each month at 02:00 UTC:
-  # schedule:
-  #   - cron: '0 2 1 * *'
+  schedule:
+    - cron: '0 2 1 * *'
 
   # Last calendar day of each quarter at 02:00 UTC (requires two crons; see README Examples):
   # schedule:
   #   - cron: '0 2 30 6,9 *'   # Jun 30, Sep 30
   #   - cron: '0 2 31 3,12 *'  # Mar 31, Dec 31
 
-  workflow_dispatch:
+  # workflow_dispatch:
 
 jobs:
   rotate-recovery-lock:
@@ -38,14 +38,6 @@ jobs:
 
           # Optional: limit to a smart computer group name instead of all devices
           rotation_scope: ${{ vars.ROTATION_SCOPE }}
-
-          # -----------------------------------------------------------------
-          # DRY RUN — uncomment to validate configuration without sending MDM commands
-          # -----------------------------------------------------------------
-          # dry_run: 'true'
-          #
-          # Optional with dry_run: log generated passphrases (sensitive; use only for debugging)
-          # show_passwords_in_dry_run: 'true'
 
       - name: Report counts
         shell: bash
